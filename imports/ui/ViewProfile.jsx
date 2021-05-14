@@ -26,11 +26,6 @@ export const ViewProfile = () => {
   // grads globals published user proflie
   const profile = Meteor.user().profile;
 
-  const [titleText, setTitleText] = useState("");
-  const [locationText, setLocationText] = useState("");
-  const [companyText, setCompanyText] = useState("");
-  const [websiteText, setWebsiteText] = useState("");
-
     //use a single useTracker to get data from users
   let { member, isLoading } = useTracker(() => {
 
@@ -44,45 +39,12 @@ export const ViewProfile = () => {
     const handler = Meteor.subscribe('memberDb');
     // set loading if handler is not ready
     if (!handler.ready()) {
-      // console.log('Handler not ready');
       return { ...noDataAvailable, isLoading: true };
     }
     const member = MemberDb.find({'userId' : user._id}).fetch();
-    // const {title, location, company, website} = member[0];
-    // setTitleText(title);
     return { member };
   });
-  const handleChangeTitle = (event) => {
-    setTitleText(event.target.value);
-  };
-  const handleSubmitTitle = e => {
-    e.preventDefault();
-    Meteor.call('memberDb.setTitle', titleText, user);
-  };
 
-  const handleChangeLocation = (event) => {
-    setLocationText(event.target.value);
-  };
-  const handleSubmitLocation = e => {
-    e.preventDefault();
-    Meteor.call('memberDb.setLocation', locationText, user);
-  };
-
-  const handleChangeCompany = (event) => {
-    setCompanyText(event.target.value);
-  };
-  const handleSubmitCompany = e => {
-    e.preventDefault();
-    Meteor.call('memberDb.setCompany', companyText, user);
-  };
-
-  const handleChangeWebsite = (event) => {
-    setWebsiteText(event.target.value);
-  };
-  const handleSubmitWebsite = e => {
-    e.preventDefault();
-    Meteor.call('memberDb.setWebsite', websiteText, user);
-  };
 
   if (!isLoading && profile) {
 
@@ -90,6 +52,8 @@ export const ViewProfile = () => {
       console.log('no membdata');
       member = [{title: '', location: '', company: '', website: ''}]
     }
+
+    //
     const {title, location, company, website} = member[0];
     // let title = '';
 
@@ -115,7 +79,9 @@ export const ViewProfile = () => {
                   multiline
                   rowsMax={2}
                   defaultValue={title} 
-                  onChange={handleChangeTitle} 
+                  InputProps={{
+                    readOnly: true
+              }}
                 />
               </FormControl>
 
@@ -126,7 +92,9 @@ export const ViewProfile = () => {
                   multiline
                   rowsMax={2}
                   defaultValue={location} 
-                  onChange={handleChangeLocation}
+                  InputProps={{
+                    readOnly: true
+              }}
                 />     
               </FormControl>    
 
@@ -137,7 +105,9 @@ export const ViewProfile = () => {
                   multiline
                   rowsMax={2}
                   defaultValue={company} 
-                  onChange={handleChangeCompany}
+                  InputProps={{
+                    readOnly: true
+              }}
                 />             
               </FormControl> 
 
@@ -148,7 +118,9 @@ export const ViewProfile = () => {
                   multiline
                   rowsMax={2}
                   defaultValue={website} 
-                  onChange={handleChangeWebsite}
+                  InputProps={{
+                    readOnly: true
+              }}
                 />             
               </FormControl> 
 

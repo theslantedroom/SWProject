@@ -67,7 +67,7 @@ mongodb://theslantedroom:DeQRRq5xiyN6CsqMi@SG-galaxycluster-38726.servers.mongod
 
 //deploy
 meteor npm install
-meteor deploy swproject.meteorapp.com --free --mongo
+meteor deploy swxproject.meteorapp.com --free --mongo
 meteor deploy stevetest.meteorapp.com --free --mongo
 
 //show user logged in
