@@ -7,3 +7,4 @@ git commit -m "push update"
 git push
 
 
+meteor deploy swxproject.meteorapp.com --free --mongo

@@ -61,7 +61,6 @@ export const ViewProfile = () => {
             <hr></hr>
             
             <TextField
-              id="filled-read-only-input"
               label="Display Name"
               defaultValue={profile.displayName}
               InputProps={{
@@ -74,7 +73,6 @@ export const ViewProfile = () => {
         
               <FormControl>
                 <TextField 
-                  id="standard-multiline-flexible" 
                   label="Title" 
                   multiline
                   rowsMax={2}
@@ -87,7 +85,6 @@ export const ViewProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-multiline-flexible"
                   label="Location"
                   multiline
                   rowsMax={2}
@@ -100,7 +97,6 @@ export const ViewProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-required"
                   label="Company"
                   multiline
                   rowsMax={2}
@@ -113,7 +109,6 @@ export const ViewProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-required"
                   label="Website"
                   multiline
                   rowsMax={2}

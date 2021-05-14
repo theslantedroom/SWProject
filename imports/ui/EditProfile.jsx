@@ -86,7 +86,6 @@ export const EditProfile = () => {
             <form className={classes.root}>
               <FormControl>
                 <TextField 
-                  id="standard-multiline-flexible" 
                   label="Title" 
                   multiline
                   rowsMax={2}
@@ -97,7 +96,6 @@ export const EditProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-multiline-flexible"
                   label="Location"
                   multiline
                   rowsMax={2}
@@ -108,7 +106,6 @@ export const EditProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-required"
                   label="Company"
                   multiline
                   rowsMax={2}
@@ -119,7 +116,6 @@ export const EditProfile = () => {
 
               <FormControl>
                 <TextField
-                  id="standard-required"
                   label="Website"
                   multiline
                   rowsMax={2}
