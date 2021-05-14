@@ -1,0 +1,76 @@
+
+//starts mongo
+meteor mongo 
+
+
+//add package
+meteor add react-meteor-data
+
+//start server
+meteor run
+
+
+//create react start
+meteor create simple-todos-react
+
+//add users
+meteor add accounts-password
+//add material ui to a react meteor project
+npm install @material-ui/core
+npm install @material-ui/icons
+//had to run t fix an error, missing dependancys
+meteor npm install --save @material-ui/core react-router-dom
+//
+meteor npm install --save react-swipeable-views
+// remove quick prototype package
+meteor remove insecure
+meteor remove autopublish
+
+
+//We also recommend you to install bcrypt node module, 
+//otherwise you are going to see a warning saying that you are using pure-Javascript implementation of it.
+meteor npm install --save bcrypt
+//URL routing package
+meteor remove ostrio:flow-router-extra
+meteor add ostrio:flow-router-extra
+
+//for testing
+meteor add meteortesting:mocha
+meteor npm install --save-dev chai
+//instal react router
+meteor npm install --save react-router-dom
+
+
+We can now run our app in “test mode” by running meteor test and specifying a test driver package (you’ll need to stop the regular app from running, or specify an alternate port with –port XYZ):
+//sets evn variaiable in cmd
+setx TEST_WATCH 1 
+//runs test
+meteor test --driver-package meteortesting:mocha
+//test once The standard 'meteor npm test' command runs the following command:
+meteor test --once --driver-package meteortesting:mocha
+
+//you are going to test a method and we want to mock the authenticated user you can install this utility package to make your life easier:
+meteor add quave:testing
+
+
+//DEPLOY to galaxy Run the deploy command:
+
+meteor deploy appName.meteorapp.com --free --mongometoer run
+
+
+//Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Your new mongo URL is
+
+mongodb://theslantedroom:DeQRRq5xiyN6CsqMi@SG-galaxycluster-38726.servers.mongodirector.com:27017,SG-galaxycluster-38727.servers.mongodirector.com:27017/sessionwirereplica-meteorapp-com?replicaSet=RS-galaxycluster-0&ssl=true
+
+//deploy
+meteor npm install
+meteor deploy swproject.meteorapp.com --free --mongo
+meteor deploy stevetest.meteorapp.com --free --mongo
+
+//show user logged in
+meteor whoami
+//wipe db
+meteor reset
