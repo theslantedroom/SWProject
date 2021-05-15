@@ -24,31 +24,18 @@ export const EditProfile = () => {
   const user = useTracker(() => Meteor.user());
   const classes = useStyles();
 
+  // const [titleText, setTitleText] = useState("");
+  // const [locationText, setLocationText] = useState("");
+  // const [companyText, setCompanyText] = useState("");
+  // const [websiteText, setWebsiteText] = useState("");
+
   // grads globals published user proflie
   const profile = Meteor.user().profile;
 
-    //use a single useTracker to get data from users
-  let { member, isLoading } = useTracker(() => {
-
-    // if no user logged in return empty array and 0 pending
-    const noDataAvailable = { };
-    if (!Meteor.user()) {
-      console.log('no user');
-      return noDataAvailable;
-    }
-    // sub to tasks
-    const handler = Meteor.subscribe('memberDb');
-    // set loading if handler is not ready
-    if (!handler.ready()) {
-      return { ...noDataAvailable, isLoading: true };
-    }
-    const member = MemberDb.find({'userId' : user._id}).fetch();
-    return { member };
-  });
+  //handle update DB when user changes profile data
   const handleChangeTitle = (event) => {
     Meteor.call('memberDb.setTitle', event.target.value, user);
   };
-
 
   const handleChangeLocation = (event) => {
     Meteor.call('memberDb.setLocation', event.target.value, user);
@@ -58,10 +45,34 @@ export const EditProfile = () => {
     Meteor.call('memberDb.setCompany', event.target.value, user);
   };
 
-
   const handleChangeWebsite = (event) => {
     Meteor.call('memberDb.setWebsite', event.target.value, user);
   };
+
+
+
+
+  //use a single useTracker to get data from users
+  let { member, isLoading } = useTracker(() => {
+    // if no user logged in return empty array and 0 pending
+    const noDataAvailable = { };
+    if (!Meteor.user()) {
+      console.log('no user');
+      return noDataAvailable;
+    }
+    // subscription to memberDb
+    const handler = Meteor.subscribe('memberDb');
+    // set loading if handler is not ready
+    if (!handler.ready()) {
+      return { ...noDataAvailable, isLoading: true };
+    }
+    const member = MemberDb.find({'userId' : user._id}).fetch();
+    console.log('return member');
+    return { member };
+  });
+
+
+
 
   if (!isLoading && profile) {
 
@@ -69,11 +80,11 @@ export const EditProfile = () => {
       console.log('no membdata');
       member = [{title: '', location: '', company: '', website: ''}]
     }
+
     const {title, location, company, website} = member[0];
 
     return (<div>
-            <hr></hr>
-            
+            <hr></hr> 
             <TextField
               id="filled-read-only-input"
               label="Display Name"

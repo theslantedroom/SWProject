@@ -1,14 +1,12 @@
 const reducer = (state, action) => {
 
   if (action.type === 'PROFILE_EDIT') {
-    console.log('edit r');
 
-    return { ...state, profileEditView: action.payload }
+    return { ...state, profileEditView: true }
   }
   if (action.type === 'PROFILE_VIEW') {
-    console.log('view r');
 
-    return { ...state, profileEditView: action.payload }
+    return { ...state, profileEditView: false }
   }
 
   throw new Error('no matching action type')

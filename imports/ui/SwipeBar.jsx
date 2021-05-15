@@ -11,10 +11,12 @@ import Box from '@material-ui/core/Box';
 import  ButtonNav  from './ButtonNav.jsx';
 import { TagListEdit } from './TagListEdit';
 import { TagList } from './TagList';
-import { EditProfile } from './EditProfile';
-import { ViewProfile } from './ViewProfile';
+import { EditProfile } from './EditProfile.jsx';
+import { ViewProfile } from './ViewProfile.jsx';
 
 import { useGlobalContext } from './GlobalContext';
+import { useContext } from 'react';
+
 
 
 function TabPanel(props) {
@@ -77,7 +79,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FloatingActionButtonZoom() {
-  const { profileEditView } = useGlobalContext();
+
+  // grad state of profileEditView(bool) and toggleProfileEdit() from Global ctx
+  const { profileEditView, toggleProfileEdit } = useGlobalContext();
+
+
   console.log(' swipe return ctx', profileEditView);
 
   const classes = useStyles();
@@ -93,6 +99,10 @@ export default function FloatingActionButtonZoom() {
     setValue(index);
   };
 
+  // when clicking back to proflie tab ensure that edit is selected
+  const handleResetEditProfile = (index) => {
+    toggleProfileEdit();
+  };
 
   return (<div>
 
@@ -105,7 +115,7 @@ export default function FloatingActionButtonZoom() {
           variant="fullWidth"
           aria-label="action tabs example"
         >
-          <Tab label="Profile" {...a11yProps(0)} />
+          <Tab label="Profile" {...a11yProps(0)} onClick={handleResetEditProfile}/>
           <Tab label="Connections" {...a11yProps(1)} />
           <Tab label="Discover" {...a11yProps(2)} />
         </Tabs>
@@ -126,14 +136,14 @@ export default function FloatingActionButtonZoom() {
         >
 
           <div className='buttonNavProfile'><ButtonNav/></div>
-          {profileEditView ? (<>
+          {profileEditView ? (<div>
             <EditProfile/>
             <TagListEdit/>
-          </>) : (<>
+          </div>) : (<div>
             <ViewProfile/>
             <TagList/>
 
-          </>)}
+          </div>)}
         </TabPanel>
 
         <TabPanel value={value} index={1} dir={theme.direction} className={classes.profilePanel}>

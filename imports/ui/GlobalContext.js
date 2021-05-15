@@ -14,13 +14,13 @@ const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
 
-  const toggleProfileEdit = (mode) => {
+  const toggleProfileEdit = () => {
     // console.log('editgtx');
-    dispatch({ type: 'PROFILE_EDIT', payload: mode })
+    dispatch({ type: 'PROFILE_EDIT' })
   }
-  const toggleProfileView = (mode) => {
+  const toggleProfileView = () => {
     // console.log('viewgtx');
-    dispatch({ type: 'PROFILE_VIEW', payload: mode })
+    dispatch({ type: 'PROFILE_VIEW' })
   }
 
   return (

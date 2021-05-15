@@ -73,7 +73,7 @@ export const TagList = () => {
     });
 
     
-    // returns either the pending cound or an empty string
+    // returns either the pending count or an empty string
     const pendingTasksTitle = `${
         pendingTasksCount ? ` (${pendingTasksCount})` : ''
     }`;

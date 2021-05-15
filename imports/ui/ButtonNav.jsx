@@ -5,8 +5,8 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import EditIcon from '@material-ui/icons/Edit';
 import PageviewIcon from '@material-ui/icons/Pageview';
 
-import { useContext } from 'react';
-import { GlobalContext } from './GlobalContext';
+import { useGlobalContext } from './GlobalContext';
+
 
 const useStyles = makeStyles({
   root: {
@@ -22,13 +22,14 @@ const useStyles = makeStyles({
 
 export default function SimpleBottomNavigation() {
 
-  const globalContext = useContext(GlobalContext)
+  const { toggleProfileEdit, toggleProfileView } = useGlobalContext();
+
 
   const setEditProfile = () => {
-    globalContext.toggleProfileEdit(true);
+    toggleProfileEdit();
   }
   const setViewProfile = () => {
-    globalContext.toggleProfileView(false);
+    toggleProfileView();
   }
   const classes = useStyles();
   const [value, setValue] = React.useState(0);

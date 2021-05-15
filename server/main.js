@@ -13,7 +13,7 @@ import '/imports/api/memberDbPublications';
 
 
 // init user creds on startup
-const SEED_USERNAME = '1';
+const SEED_USERNAME = '1@1.com';
 const SEED_PASSWORD = '1';
 
 // put a task into DB
@@ -24,23 +24,24 @@ TasksCollection.insert({
   createdAt: new Date(),
 });
 
-// put a task into DB
-const addCity = (city, user) => 
-MemberDb.insert({ 
-  city: city,
-  userId: user._id, 
-  createdAt: new Date(),
-});
+
  
 Meteor.startup(() => {
   // Create a starter account if none matched init creds
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
-    Accounts.createUser({
-      username: SEED_USERNAME,
-      password: SEED_PASSWORD
-    });
+  if (!Accounts.findUserByEmail(SEED_USERNAME)) {
+        Accounts.createUser({
+            email: SEED_USERNAME,
+            password: SEED_PASSWORD,
+            profile: {
+                firstName: 'firstName',
+                lastName: 'lastName',
+                displayName: '1displayName',
+                joinedDate: new Date(),
+            }
+        });
   }
   
+
 
   // grab user creds from DB
   const user = Accounts.findUserByUsername(SEED_USERNAME);
@@ -48,13 +49,8 @@ Meteor.startup(() => {
   // if DB is empty create some starter data
   if (TasksCollection.find().count() === 0) {
     [
-      'First Task',
-      'Second Task',
-      'Third Task',
-      'Fourth Task',
-      'Fifth Taggsk',
-      'Sixth Task',
-      'Seventh Task'
+      'First tag',
+      'Second tag'
     ].forEach((taskText) => insertTask(taskText, user));
   }
 });

@@ -47,6 +47,7 @@ export const Landing = () => {
                 firstName: firstName,
                 lastName: lastName,
                 displayName: displayName,
+                joinedDate: new Date(),
             }
         });
         setRedirectAfterNewAccount(true);

@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { MemberDb } from '/imports/db/MemberDb';
 import { useTracker } from 'meteor/react-meteor-data';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl } from '@material-ui/core';
+
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import Divider from '@material-ui/core/Divider';
+import './ViewProfile.css';
+import Typography from '@material-ui/core/Typography';
+
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+
+
 
 
 
@@ -22,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
 export const ViewProfile = () => {
   const user = useTracker(() => Meteor.user());
   const classes = useStyles();
+
+  // const [titleText, setTitleText] = useState("");
+  // const [locationText, setLocationText] = useState("");
+  // const [companyText, setCompanyText] = useState("");
+  // const [websiteText, setWebsiteText] = useState("");
 
   // grads globals published user proflie
   const profile = Meteor.user().profile;
@@ -55,74 +73,88 @@ export const ViewProfile = () => {
 
     //
     const {title, location, company, website} = member[0];
-    // let title = '';
+
+    // parse date obeject to string
+    Date.prototype.yyyymmdd = function() {
+      var mm = this.getMonth() + 1; // getMonth() is zero-based
+      var dd = this.getDate();
+
+      return [this.getFullYear(),
+              (mm>9 ? '' : '0') + mm,
+              (dd>9 ? '' : '0') + dd
+            ].join('-');
+    };
+
+    let joinedDate = (user.profile.joinedDate).yyyymmdd();
 
     return (<div>
             <hr></hr>
-            
-            <TextField
-              label="Display Name"
-              defaultValue={profile.displayName}
-              InputProps={{
-                readOnly: true
-              }}
-            />    
+            <div id='profileViewPic'>
+              <img src="https://robohash.org/tre?size=200x200" alt="profile pic" />
+            </div>
+            <div className='profileViewDisplayName'>
+              {profile.displayName}
+            </div>
 
+            <div className="grid-container">
+              <div className="info">
+                <Typography variant="button" display="block" gutterBottom>
+                  <PermIdentityIcon /> Info
+                </Typography>
 
-            <form className={classes.root}>
-        
-              <FormControl>
-                <TextField 
-                  label="Title" 
-                  multiline
-                  rowsMax={2}
-                  defaultValue={title} 
-                  InputProps={{
-                    readOnly: true
-              }}
-                />
-              </FormControl>
-
-              <FormControl>
-                <TextField
-                  label="Location"
-                  multiline
-                  rowsMax={2}
-                  defaultValue={location} 
-                  InputProps={{
-                    readOnly: true
-              }}
-                />     
-              </FormControl>    
-
-              <FormControl>
-                <TextField
-                  label="Company"
-                  multiline
-                  rowsMax={2}
-                  defaultValue={company} 
-                  InputProps={{
-                    readOnly: true
-              }}
-                />             
-              </FormControl> 
-
-              <FormControl>
-                <TextField
-                  label="Website"
-                  multiline
-                  rowsMax={2}
-                  defaultValue={website} 
-                  InputProps={{
-                    readOnly: true
-              }}
-                />             
-              </FormControl> 
-
-              <div>
-              {isLoading && <div className="loading">loading...</div>}
               </div>
-          </form>
+              <div className="location">
+                <Typography variant="button" display="block" gutterBottom>
+                  Location
+                </Typography>
+                <Typography variant="body2" display="block" gutterBottom>
+                  {location}
+                </Typography>
+              </div>
+
+
+              <div className="company">
+                <Typography variant="button" display="block" gutterBottom>
+                  company
+                </Typography>
+                <Typography variant="body2" display="block" gutterBottom>
+                  {company}
+                </Typography>                
+              </div>  
+
+              <div className="joined">
+                <Typography variant="button" display="block" gutterBottom>
+                  joined
+                </Typography>
+                <Typography variant="body2" display="block" gutterBottom>
+                  {joinedDate}
+                </Typography>
+              </div>
+
+              <div className="website">
+                <Typography variant="button" display="block" gutterBottom>
+                  website
+                </Typography>
+                <Typography variant="body2" display="block" gutterBottom>
+                  {website}
+                </Typography>
+              </div>
+              
+              <div className="intro">
+                <Typography variant="button" display="block" gutterBottom>
+                  intro
+                </Typography>
+                <Typography variant="body2" display="block" gutterBottom>
+                  {'N/A'}
+                </Typography>
+              </div>
+
+            </div>
+
+
+
+              {isLoading && <div className="loading">loading...</div>}
+
     </div>);    
   };
 
